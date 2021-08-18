@@ -12,4 +12,4 @@ const blocked = new Schema({
     }
 })
 
-module.exports = mongoose.model("Blocked", blocked)
+module.exports = mongoose.model("Block", blocked)

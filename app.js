@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Router = require("./routes/auth")
+const AuthRouter = require("./routes/auth")
+const MsgRouter = require("./routes/messaging")
 const session = require("express-session")
 
 const app = express();
@@ -21,7 +22,8 @@ db.once('open', function() {
 })
 
 app.use(session({secret: "fawyueh4t48aw9hfg4", resave: false, saveUninitialized: true}))
-app.use('/', Router);
+app.use('/api', MsgRouter)
+app.use('/auth', AuthRouter)
 
 app.listen(3000, () => {
     console.log("Server is running at port 3000");

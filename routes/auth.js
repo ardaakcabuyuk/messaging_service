@@ -3,51 +3,68 @@ const User = require("../models/user")
 const app = express()
 
 app.post("/register", async (req, res) => {
-    const user = new User(req.body);
+    if (!req.session.user) {
+        if (req.body.username == "" || req.body.password == "") {
+            return res.status(404).send("enter valid credentials!")
+        }
 
-    try {
-        await user.save();
-        res.send(user);
-    } catch (error) {
-        res.status(500).send(error);
+        User.findOne({username: req.body.username}, async function(err, user) {
+            if (user) {
+                return res.status(404).send("this user already exists!")
+            }
+
+            else {
+                const user = new User(req.body);
+
+                try {
+                    await user.save()
+                    return res.send(user)
+                } catch (error) {
+                    return res.status(500).send(error)
+                }
+            }
+        })
+    }
+    else {
+        return res.status(404).send("a user is logged in right now! log out first!")
     }
 })
 
 app.post("/login", async (req, res) => {
-    const username = req.body.username
-    const password = req.body.password
-
-    User.findOne({
-        username: username,
-        password: password
-        },
-        function (err, user) {
-            if (err) {
-                console.log(err)
-                return res.status(500).send()
-            }
-
-            if (!user) {
-                return res.status(404).send()
-            }
-
-            req.session.user = user
-            return res.status(200).send()
-        }
-    )
-})
-
-app.get("/index", function(req, res) {
     if (!req.session.user) {
-        return res.status(401).send()
-    }
+        const username = req.body.username
+        const password = req.body.password
 
-    return res.status(200).send("logged in")
+        User.findOne({
+                username: username,
+                password: password
+            },
+            function (err, user) {
+                if (err) {
+                    return res.status(500).send(err.message)
+                }
+
+                if (!user) {
+                    return res.status(404).send("incorrect credentials!")
+                }
+
+                req.session.user = user
+                return res.status(200).send("successfully logged in!")
+            }
+        )
+    }
+    else {
+        return res.status(404).send("you should be logged out first!")
+    }
 })
 
 app.get("/logout", function(req, res) {
-    req.session.destroy()
-    res.status(200).send()
+    if (req.session.user) {
+        req.session.destroy()
+        return res.status(200).send("successfully logged out!")
+    }
+
+    return res.status(404).send("you should be logged in first!")
 })
 
 module.exports = app;
