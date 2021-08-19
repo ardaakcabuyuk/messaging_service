@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const blocked = new Schema({
-    user: {
+const log = new Schema({
+    username: {
         type: String,
         required: true
     },
@@ -16,4 +16,4 @@ const blocked = new Schema({
     }
 })
 
-module.exports = mongoose.model("Blocked", blocked)
+module.exports = mongoose.model("Log", log)
