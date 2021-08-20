@@ -12,9 +12,9 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "mongodb": "^4.1.0",
-    "mongoose": "^5.13.7"
+    "mongoose": "^5.13.7",
+    "winston": "^3.3.3"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ardaakcabuyuk/armut_messaging_service.git"
