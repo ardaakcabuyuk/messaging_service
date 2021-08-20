@@ -93,7 +93,7 @@ app.post("/login", async (req, res) => {
 
                 try {
                     await log.save()
-                    return res.status(200).send("successfully logged in!")
+                    return res.status(200).send(user)
                 } catch (error) {
                     logError(req, error.message, 500)
                     return res.status(500).send(error.message)
@@ -120,7 +120,7 @@ app.get("/logout", async (req, res) => {
         try {
             req.session.destroy()
             await log.save()
-            return res.status(200).send("successfully logged out!")
+            return res.status(200).send("successfully logged out")
         } catch (error) {
             logError(req, error.message, 500)
             return res.status(500).send(error.message)
