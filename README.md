@@ -39,45 +39,33 @@ Technical Requirements
 
 ### /register (POST)
 A new user can register through this endpoint. <br />
-The request body should be: <br />
-{ <br />
-  username: "*username*", <br />
-  password: "*password*" <br />
-}
-<br />
+The request body should be: { username: "*username*", password: "*password*" }
+
 
 ### /login (POST)
 A registered user can be logged in through this endpoint. <br />
-The request body should be: <br />
-{ <br />
-  username: "*username*", <br />
-  password: "*password*" <br />
-}
-<br />
+The request body should be: { username: "*username*", password: "*password*" <br /> }
+
 
 ### /logout (DELETE)
 The logged in user can log out through this endpoint.
-<br />
+
 
 ### /log (GET)
 Retrieves the user activity logs for all users. Only the account with the username *"admin"* can access the logs.
-<br />
+
 
 ### /send_message/:username (POST)
 A user can send a message to another user with the username in the request parameter. <br />
-The request body should be: <br />
-{ <br />
-    "content": "*message*" <br />
-}
-<br />
+The request body should be: { "content": "*message*" }
 
 ### /messages/:username (GET)
 A user can see the previous messages with the user having the username in the request parameter.
-<br />
+
 
 ### /block/:username (POST)
 The current user can block the user having the username in the request parameter.
-<br />
+
 
 ### /unblock/:username (DELETE)
 The current user can unblock the user having the username in the request parameter.
