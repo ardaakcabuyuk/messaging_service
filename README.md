@@ -26,6 +26,7 @@ Scenario
 
 - Error logs are held in the error.log file.
 
+
 Technical Requirements
 
 - The service is scalable since I used MongoDB for the database connection.
@@ -37,36 +38,46 @@ Technical Requirements
 ## Endpoints
 
 ### /register (POST)
-A new user can register through this endpoint. The request body should be 
-{
-  username: "*username*", 
-  password: "*password*"
+A new user can register through this endpoint. 
+The request body should be: <br />
+{ <br />
+  username: "*username*", <br />
+  password: "*password*" <br />
 }
 
+
 ### /login (POST)
-A registered user can be logged in through this endpoint. The request body should be
-{
-  username: "*username*", 
-  password: "*password*"
+A registered user can be logged in through this endpoint. <br />
+The request body should be: <br />
+{ <br />
+  username: "*username*", <br />
+  password: "*password*" <br />
 }
+
 
 ### /logout (DELETE)
 The logged in user can log out through this endpoint.
 
+
 ### /log (GET)
 Retrieves the user activity logs for all users. Only the account with the username *"admin"* can access the logs.
 
+
 ### /send_message/:username (POST)
-A user can send a message to another user with the username in the request parameter. The request body should be
-{
-    "content": "*message*"
+A user can send a message to another user with the username in the request parameter. <br />
+The request body should be: <br />
+{ <br />
+    "content": "*message*" <br />
 }
+
 
 ### /messages/:username (GET)
 A user can see the previous messages with the user having the username in the request parameter.
 
+
 ### /block/:username (POST)
 The current user can block the user having the username in the request parameter.
+
 
 ### /unblock/:username (DELETE)
 The current user can unblock the user having the username in the request parameter.
