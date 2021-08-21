@@ -1,0 +1,12 @@
+error: Aug-21-2021 11:05:36: 	undefined - this user already exists! - /auth/register - POST - ::1
+error: Aug-21-2021 11:07:23: 	undefined - this user already exists! - /auth/register - POST - ::1
+error: Aug-21-2021 11:07:24: 	undefined - this user already exists! - /auth/register - POST - ::1
+error: Aug-21-2021 11:07:25: 	undefined - this user already exists! - /auth/register - POST - ::1
+error: Aug-22-2021 00:27:18: 	404 - a user is logged in right now! log out first! - /auth/register - POST - ::1
+error: Aug-22-2021 00:33:36: 	404 - you should be logged out first! - /auth/login - POST - ::1
+error: Aug-22-2021 00:37:28: 	404 - incorrect credentials! - /auth/login - POST - ::1
+error: Aug-22-2021 00:37:46: 	undefined - enter valid credentials! - /auth/login - POST - ::1
+error: Aug-22-2021 00:38:51: 	undefined - this user already exists! - /auth/register - POST - ::1
+error: Aug-22-2021 00:38:59: 	undefined - this user already exists! - /auth/register - POST - ::1
+error: Aug-22-2021 00:39:10: 	404 - user admin does not exist - /api/send_message/admin - POST - ::1
+error: Aug-22-2021 00:39:32: 	undefined - enter a valid message! - /api/send_message/ali - POST - ::1

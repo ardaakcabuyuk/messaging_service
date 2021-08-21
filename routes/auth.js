@@ -1,7 +1,7 @@
 const express = require("express")
 const User = require("../models/user")
 const Log = require("../models/log")
-const logger = require('../utils/logger');
+const logError = require("../utils/errorLogger")
 const app = express()
 
 app.post("/register", async (req, res) => {
@@ -9,15 +9,15 @@ app.post("/register", async (req, res) => {
     if (!req.session.user) {
         if (req.body.username == "" || req.body.password == "") {
             errorMsg = "enter valid credentials!"
-            logError(req, errorMsg)
+            logError(req, errorMsg,404)
             return res.status(404).send(errorMsg)
         }
 
         User.findOne({username: req.body.username}, async function(err, user) {
             if (user) {
                 errorMsg = "this user already exists!"
-                logError(req, errorMsg)
-                return res.status(404).send()
+                logError(req, errorMsg, 404)
+                return res.status(404).send(errorMsg)
             }
 
             else {
@@ -33,7 +33,7 @@ app.post("/register", async (req, res) => {
                     await log.save()
                     return res.send(user)
                 } catch (error) {
-                    logError(req, error.message)
+                    logError(req, error.message, 500)
                     return res.status(500).send(error)
                 }
             }
@@ -49,6 +49,12 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
     let errorMsg = ""
     if (!req.session.user) {
+        if (req.body.username == "" || req.body.password == "") {
+            errorMsg = "enter valid credentials!"
+            logError(req, errorMsg, 404)
+            return res.status(404).send(errorMsg)
+        }
+
         const username = req.body.username
         const password = req.body.password
 
@@ -64,7 +70,7 @@ app.post("/login", async (req, res) => {
                 if (!user) {
                     errorMsg = "incorrect credentials!"
                     logError(req, errorMsg, 404)
-                    return res.status(404).send()
+                    return res.status(404).send(errorMsg)
                 }
 
                 if (password.localeCompare(user.password)) {
@@ -161,9 +167,5 @@ app.get("/logs", async (req, res) => {
         return res.status(404).send(errorMsg)
     }
 })
-
-function logError (req, msg, code) {
-    logger.error(`${code} - ${msg} - ${req.originalUrl} - ${req.method} - ${req.ip}`)
-}
 
 module.exports = app

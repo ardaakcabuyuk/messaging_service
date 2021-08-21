@@ -3,7 +3,7 @@ const Message = require("../models/message")
 const User = require("../models/user")
 const Blocked = require("../models/blocked")
 const Log = require("../models/log")
-const logger = require('../utils/logger');
+const logError = require("../utils/errorLogger")
 
 const app = express()
 
@@ -11,6 +11,12 @@ app.post("/send_message/:to", async (req, res) => {
     let errorMsg = ""
     try {
         if (req.session.user) {
+            if (req.body.content == "") {
+                errorMsg = "enter a valid message!"
+                logError(req, errorMsg, 404)
+                return res.status(404).send(errorMsg)
+            }
+
             const to = req.params.to
             const from = req.session.user.username
             User.findOne({
@@ -255,9 +261,5 @@ app.delete("/unblock/:username", async (req, res) => {
         res.status(500).send(error.message)
     }
 })
-
-function logError (req, msg, code) {
-    logger.error(`${code} - ${msg} - ${req.originalUrl} - ${req.method} - ${req.ip}`)
-}
 
 module.exports = app
